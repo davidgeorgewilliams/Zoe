@@ -12,8 +12,8 @@ FROM alpine:latest
 
 WORKDIR /app
 
-COPY --from=builder /app/zig-out/bin/my_zap_project .
+COPY --from=builder /app/zig-out/bin/zoe .
 
 EXPOSE 3000
 
-CMD ["./Zoe"]
+CMD ["./zoe"]

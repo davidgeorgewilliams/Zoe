@@ -17,24 +17,35 @@ Zoe is a lightning-fast, intergalactic ad server written in Zig, powered by Zap,
 
 Strap on your space helmet and follow these steps to launch Zoe into orbit:
 
-1. Ensure you have Zig installed (version 0.14.0 or later recommended)
-2. Clone this repository:
+Ensure you have [Zig](https://ziglang.org/) installed (version 0.14.0 or later recommended)
+
+Clone this repository:
 
 ```bash
 git clone https://github.com/davidgeorgewilliams/Zoe.git
 cd Zoe
 ```
-3. Build the project:
+Build the project:
 
 ```bash
 zig build 
 ```
-4. Launch Zoe into the advertising stratosphere:
+Launch Zoe into the advertising stratosphere:
 ```bash
 zig build run
 ```
-5. Open your space-age browser and navigate to `http://localhost:3000`
+Open your space-age browser and navigate to `http://localhost:3000`
 
+![Home.jpg](docs/Home.jpg)
+
+Explore our Galactic Ad Gallery at `http://localhost:3000/ads`
+
+![Ads.jpg](docs/Ads.jpg)
+
+Join Zoe on her Intergalactic Adventure at `http://localhost:3000/adventure`
+
+![Adventure.jpg](docs/Adventure.jpg)
+ 
 Congratulations, cadet! You're now ready to explore the far reaches of the advertising universe with Zoe!
 
 ## Server API

@@ -1,6 +1,8 @@
 const std = @import("std");
 const Ad = @import("models/ad.zig").Ad;
 
+const AD_CREATIVES_JSON = @embedFile("resources/ad_creatives.json");
+
 pub const AdManager = struct {
     ads: std.ArrayList(Ad),
     allocator: std.mem.Allocator,
@@ -11,26 +13,40 @@ pub const AdManager = struct {
             .allocator = allocator,
         };
 
-        // Add some sample ads
-        try manager.addAd("Lunar Lander Insurance", "Don't crash and burn! Get covered today!");
-        try manager.addAd("Martian Real Estate", "Own a piece of the Red Planet!");
-        try manager.addAd("Asteroid Mining Equipment", "Strike it rich in the belt!");
+        try manager.loadAdsFromJson();
 
         return manager;
     }
 
     pub fn deinit(self: *AdManager) void {
+        for (self.ads.items) |ad| {
+            self.allocator.free(ad.title);
+            self.allocator.free(ad.content);
+            self.allocator.free(ad.creative);
+        }
         self.ads.deinit();
     }
 
-    pub fn addAd(self: *AdManager, title: []const u8, content: []const u8) !void {
-        const id = @as(u32, @intCast(self.ads.items.len + 1));
-        const ad = Ad{
-            .id = id,
-            .title = try self.allocator.dupe(u8, title),
-            .content = try self.allocator.dupe(u8, content),
-        };
-        try self.ads.append(ad);
+    fn loadAdsFromJson(self: *AdManager) !void {
+        var json_parsed = try std.json.parseFromSlice(
+            std.json.Value,
+            self.allocator,
+            AD_CREATIVES_JSON,
+            .{}
+        );
+        defer json_parsed.deinit();
+
+        const ads = json_parsed.value.array;
+
+        for (ads.items) |ad_value| {
+            const ad = ad_value.object;
+            try self.ads.append(Ad{
+                .id = @intCast(self.ads.items.len + 1),
+                .title = try self.allocator.dupe(u8, ad.get("title").?.string),
+                .content = try self.allocator.dupe(u8, ad.get("content").?.string),
+                .creative = try self.allocator.dupe(u8, ad.get("creative").?.string),
+            });
+        }
     }
 
     pub fn getAds(self: *AdManager) []const Ad {

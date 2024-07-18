@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Lunar Lander Insurance",
+    "content": "Don't crash and burn! Get covered today!",
+    "creative": "LunarLanderInsurance.jpg"
+  },
+  {
+    "title": "Martian Real Estate",
+    "content": "Own a piece of the Red Planet!",
+    "creative": "MartianRealEstate.jpg"
+  },
+  {
+    "title": "Asteroid Mining Equipment",
+    "content": "Strike it rich in the belt!",
+    "creative": "AsteroidMiningEquipment.jpg"
+  },
+  {
+    "title": "Interstellar Travel Agency",
+    "content": "Explore the cosmos in style and comfort!",
+    "creative": "InterstellarTravelAgency.jpg"
+  }
+]

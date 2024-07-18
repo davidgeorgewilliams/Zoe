@@ -4,6 +4,7 @@ const AdManager = @import("ad_manager.zig").AdManager;
 const home = @import("handlers/home.zig");
 const ads = @import("handlers/ads.zig");
 const space_adventure = @import("handlers/space_adventure.zig");
+const static_handler = @import("handlers/static_handler.zig");
 
 pub const AdServer = struct {
     allocator: std.mem.Allocator,
@@ -33,6 +34,8 @@ pub const AdServer = struct {
             ads.handle(req, &self.ad_manager);
         } else if (std.mem.eql(u8, path, "/adventure")) {
             space_adventure.handle(req);
+        } else if (std.mem.startsWith(u8, path, "/creatives/") and path.len > "/creatives/".len) {
+            static_handler.handleStatic(req);
         } else {
             req.setStatus(.not_found);
             req.sendBody("Oops! Zoe couldn't find that page in the cosmic void!") catch {};
